@@ -27,3 +27,6 @@ dist-ssr
 # Bun / Lockfiles
 bun.lock
 package-lock.json
+
+# Java / Maven build
+backend/target/

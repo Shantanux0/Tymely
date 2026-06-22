@@ -68,24 +68,25 @@ const ClinicContext = createContext<ClinicContextType | undefined>(undefined);
 
 // Helper API Fetcher with automatic JWT Token attaching
 const apiFetch = async (path: string, options: RequestInit = {}) => {
-  const token = typeof window !== "undefined" ? localStorage.getItem("doxly_auth_token") : null;
+  const token = typeof window !== "undefined" ? localStorage.getItem("tymely_auth_token") : null;
   const headers = {
     "Content-Type": "application/json",
     ...(token ? { "Authorization": `Bearer ${token}` } : {}),
     ...(options.headers || {}),
   };
 
-  const response = await fetch(`http://localhost:8080${path}`, {
+  const apiBase = import.meta.env.VITE_API_URL || "http://localhost:8080";
+  const response = await fetch(`${apiBase}${path}`, {
     ...options,
     headers,
   });
 
   if (response.status === 401) {
     if (typeof window !== "undefined") {
-      localStorage.removeItem("doxly_auth_token");
-      localStorage.removeItem("doxly_doctor_name");
-      localStorage.removeItem("doxly_clinic_name");
-      localStorage.removeItem("doxly_specialty");
+      localStorage.removeItem("tymely_auth_token");
+      localStorage.removeItem("tymely_doctor_name");
+      localStorage.removeItem("tymely_clinic_name");
+      localStorage.removeItem("tymely_specialty");
       window.location.href = "/login";
     }
     throw new Error("Unauthorized");
@@ -119,7 +120,7 @@ export function ClinicProvider({ children }: { children: React.ReactNode }) {
 
   const refreshData = async () => {
     try {
-      const token = typeof window !== "undefined" ? localStorage.getItem("doxly_auth_token") : null;
+      const token = typeof window !== "undefined" ? localStorage.getItem("tymely_auth_token") : null;
       if (!token) return;
 
       const q = await apiFetch("/api/queue");

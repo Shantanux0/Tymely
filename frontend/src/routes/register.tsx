@@ -72,8 +72,9 @@ function RegisterPage() {
     setLoadingText("Creating account...");
 
     try {
+      const apiBase = import.meta.env.VITE_API_URL || "http://localhost:8080";
       // 1. Send register request
-      const regResponse = await fetch("http://localhost:8080/api/auth/register", {
+      const regResponse = await fetch(`${apiBase}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -95,7 +96,7 @@ function RegisterPage() {
       setLoadingText("Logging in...");
 
       // 2. Perform auto-login
-      const loginResponse = await fetch("http://localhost:8080/api/auth/login", {
+      const loginResponse = await fetch(`${apiBase}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

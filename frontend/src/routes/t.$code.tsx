@@ -46,7 +46,8 @@ function GuestTrackerPage() {
   useEffect(() => {
     const loadQueue = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/public/track/${code}`);
+        const apiBase = import.meta.env.VITE_API_URL || "http://localhost:8080";
+        const response = await fetch(`${apiBase}/api/public/track/${code}`);
         if (response.ok) {
           const data = await response.json();
           setQueue(data);
