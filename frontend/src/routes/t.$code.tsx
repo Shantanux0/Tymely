@@ -46,7 +46,7 @@ function GuestTrackerPage() {
   useEffect(() => {
     const loadQueue = async () => {
       try {
-        const apiBase = import.meta.env.VITE_API_URL || "http://localhost:8080";
+        const apiBase = import.meta.env.VITE_API_URL || "https://tymely.onrender.com";
         const response = await fetch(`${apiBase}/api/public/track/${code}`);
         if (response.ok) {
           const data = await response.json();

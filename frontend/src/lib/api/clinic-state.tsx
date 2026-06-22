@@ -75,7 +75,7 @@ const apiFetch = async (path: string, options: RequestInit = {}) => {
     ...(options.headers || {}),
   };
 
-  const apiBase = import.meta.env.VITE_API_URL || "http://localhost:8080";
+  const apiBase = import.meta.env.VITE_API_URL || "https://tymely.onrender.com";
   const response = await fetch(`${apiBase}${path}`, {
     ...options,
     headers,

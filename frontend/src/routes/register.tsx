@@ -72,7 +72,7 @@ function RegisterPage() {
     setLoadingText("Creating account...");
 
     try {
-      const apiBase = import.meta.env.VITE_API_URL || "http://localhost:8080";
+      const apiBase = import.meta.env.VITE_API_URL || "https://tymely.onrender.com";
       // 1. Send register request
       const regResponse = await fetch(`${apiBase}/api/auth/register`, {
         method: "POST",
