@@ -16,9 +16,9 @@ import cleanHospitalWaiting from "@/assets/clean_hospital_waiting.png";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Tymely — One dashboard for your clinic" },
+      { title: "Tymely" },
       { name: "description", content: "Tymely gives Indian doctors one dashboard to manage queues, track earnings, and auto-book patients on WhatsApp." },
-      { property: "og:title", content: "Tymely — One dashboard for your clinic" },
+      { property: "og:title", content: "Tymely" },
       { property: "og:description", content: "Clinic management software built for Indian doctors. WhatsApp booking, live queue, and earnings tracking." },
     ],
   }),
