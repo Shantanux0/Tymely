@@ -30,3 +30,6 @@ package-lock.json
 
 # Java / Maven build
 backend/target/
+
+# Vercel
+.vercel/
