@@ -92,6 +92,23 @@ Because **Tymely** uses **TanStack Start** (which features Server-Side Rendering
 
 ---
 
+## Step 3.5: Deploy the Frontend on Vercel (Alternative Option)
+
+Because **Tymely** uses **TanStack Start** (SSR), the configuration in `frontend/vite.config.ts` has been set to the `vercel` build preset. This allows Vercel to automatically detect and run the frontend SSR backend serverless functions.
+
+1. Log in to [Vercel](https://vercel.com/) and click **Add New** -> **Project**.
+2. Select your GitHub repository.
+3. Configure the project settings:
+   - **Framework Preset**: Select **Other** (Vercel will auto-detect Nitro/Vite from the configuration).
+   - **Root Directory**: Select `frontend`.
+   - **Build Command**: `npm run build`
+   - **Output Directory**: Vercel will automatically read `.vercel/output` compiled by the `vercel` preset in your `vite.config.ts`.
+4. In the **Environment Variables** section, add:
+   - **`VITE_API_URL`**: `https://tymely-backend.onrender.com` (Your deployed backend URL).
+5. Click **Deploy**.
+
+---
+
 ## Verification & Troubleshooting
 
 ### CORS Issues
