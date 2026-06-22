@@ -45,7 +45,6 @@ function Index() {
         <MissedAppointment />
         <StatsSection />
         <Testimonials />
-        <Pricing />
         <FAQ />
         <FinalCTA />
         <Footer />
@@ -594,129 +593,14 @@ function Testimonials() {
   );
 }
 
-/* ---------- PRICING ---------- */
-function Pricing() {
-  const [yearly, setYearly] = useState(true);
-  const features = [
-    "Unlimited patients", "Live queue management", "WhatsApp automation included",
-    "Expiring token links", "Earnings tracker", "Patient history and records",
-    "Missed appointment recovery", "Priority support",
-  ];
-  return (
-    <section id="pricing" className="bg-[#0A0A0A] px-6 py-28 md:py-36">
-      <div className="mx-auto max-w-6xl">
-        <div className="text-center">
-          <Reveal><p className="font-mono-dm text-xs uppercase tracking-[0.2em] text-emerald">Pricing</p></Reveal>
-          <Reveal delay={0.1}>
-            <h2 className="font-display mt-4 text-5xl text-white md:text-7xl">One plan. Everything included.</h2>
-          </Reveal>
-          <Reveal delay={0.2}>
-            <p className="mt-4 text-text-secondary">No hidden charges. WhatsApp included.</p>
-          </Reveal>
-
-          <Reveal delay={0.3}>
-            <div className="mt-10 inline-flex items-center gap-1 rounded-full border border-border-subtle bg-[#111] p-1">
-              <button
-                data-cursor="button"
-                onClick={() => setYearly(false)}
-                className={`rounded-full px-5 py-2 text-sm transition ${!yearly ? "bg-emerald text-[#062014]" : "text-text-secondary"}`}
-              >Monthly</button>
-              <button
-                data-cursor="button"
-                onClick={() => setYearly(true)}
-                className={`flex items-center gap-2 rounded-full px-5 py-2 text-sm transition ${yearly ? "bg-emerald text-[#062014]" : "text-text-secondary"}`}
-              >
-                Yearly
-                <span className="rounded-full bg-emerald/20 px-2 py-0.5 text-[10px] text-emerald">Save ₹1,589</span>
-              </button>
-            </div>
-          </Reveal>
-        </div>
-
-        <div className="mt-14 grid gap-6 md:grid-cols-2">
-          <Reveal>
-            <PriceCard
-              title="Monthly"
-              price={yearly ? "₹1,083" : "₹1,299"}
-              period={yearly ? "/month · billed yearly" : "/month"}
-              note={yearly ? "Pay ₹12,999 once a year" : "Billed monthly"}
-              features={features}
-              cta="Get Started"
-              outlined
-            />
-          </Reveal>
-          <Reveal delay={0.1}>
-            <PriceCard
-              title="Yearly"
-              highlight
-              price={yearly ? "₹12,999" : "₹15,588"}
-              period={yearly ? "/year" : "/year (monthly billing)"}
-              note={yearly ? "₹1,083/month · Save ₹1,589 · 2 months free" : "Switch to yearly to save"}
-              features={features}
-              cta="Get Started"
-            />
-          </Reveal>
-        </div>
-
-        <p className="mt-10 text-center text-sm text-text-secondary">
-          All plans include 14 day free trial. No credit card required.
-        </p>
-      </div>
-    </section>
-  );
-}
-
-function PriceCard({
-  title, price, period, note, features, cta, outlined, highlight,
-}: {
-  title: string; price: string; period: string; note: string; features: string[];
-  cta: string; outlined?: boolean; highlight?: boolean;
-}) {
-  return (
-    <div className={`relative rounded-2xl border p-8 md:p-10 ${highlight ? "border-emerald/60 bg-[#1E1E1E] shadow-[0_0_72px_rgba(82,183,136,0.22)]" : "border-border-subtle bg-[#1A1A1A]"}`}>
-      {highlight && (
-        <div className="absolute -top-3 right-6 rounded-full bg-emerald px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-[#062014]">
-          Most Popular
-        </div>
-      )}
-      <div className="text-sm uppercase tracking-wider text-text-secondary">{title}</div>
-      <div className="mt-4 flex items-baseline gap-2">
-        <span className="font-mono-dm text-5xl text-white md:text-6xl">{price}</span>
-        <span className="text-sm text-text-secondary">{period}</span>
-      </div>
-      <p className="mt-2 text-xs text-emerald">{note}</p>
-      <ul className="mt-8 space-y-3">
-        {features.map((f) => (
-          <li key={f} className="flex items-center gap-3 text-sm text-white">
-            <Check className="h-4 w-4 text-emerald" />
-            {f}
-          </li>
-        ))}
-      </ul>
-      <Link
-        to="/register"
-        data-cursor="button"
-        className={`mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition ${
-          outlined
-            ? "border border-emerald/60 text-emerald hover:bg-emerald/10"
-            : "bg-emerald text-[#062014] hover:brightness-110 hover:shadow-[0_0_40px_rgba(82,183,136,0.45)]"
-        }`}
-      >
-        {cta} <ArrowRight className="h-4 w-4" />
-      </Link>
-    </div>
-  );
-}
-
 /* ---------- FAQ ---------- */
 function FAQ() {
   const qs = [
-    { q: "Is WhatsApp cost included in the subscription?", a: "Yes. Your entire WhatsApp API usage is covered in your Tymely subscription. You pay nothing extra for WhatsApp messages or confirmations." },
+    { q: "Are there any extra charges for WhatsApp messages?", a: "No. Your WhatsApp API usage is fully covered. You pay nothing extra for patient bookings, queue notifications, or reminders." },
     { q: "Do I need technical knowledge to set this up?", a: "None at all. We set everything up for you including your WhatsApp connection. You will be live within 24 hours of signing up." },
     { q: "Can multiple staff members use one account?", a: "Yes. Your compounder and staff can access the dashboard to add patients and manage the queue." },
     { q: "Is my patient data safe and private?", a: "Completely. Your data is encrypted and stored securely. No other doctor or third party can ever access your patient records." },
     { q: "What happens if a patient misses their turn?", a: "Tymely automatically reschedules them 5 positions ahead in the queue and sends them a WhatsApp notification. No manual work needed." },
-    { q: "Can I cancel my subscription anytime?", a: "Yes for monthly plans. Yearly plans are non-refundable but you keep access until the period ends." },
   ];
   const [open, setOpen] = useState<number | null>(0);
   return (
@@ -784,7 +668,7 @@ function FinalCTA() {
           </Link>
         </Reveal>
         <Reveal delay={0.35}>
-          <p className="mt-6 text-xs text-text-muted">14 day free trial · No credit card · Setup in 24 hours</p>
+          <p className="mt-6 text-xs text-text-muted">Setup in 24 hours</p>
         </Reveal>
       </div>
     </section>
@@ -808,7 +692,7 @@ function Footer() {
         </div>
 
         <FooterCol title="Product" links={[
-          ["Features", "#features"], ["Pricing", "#pricing"], ["How It Works", "#how"], ["Dashboard", "/login"],
+          ["Features", "#features"], ["How It Works", "#how"], ["Dashboard", "/login"],
         ]} />
         <FooterCol title="Company" links={[
           ["About", "#about"], ["Contact", "#contact"], ["Privacy Policy", "#"], ["Terms", "#"],
