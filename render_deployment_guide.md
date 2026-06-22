@@ -16,19 +16,24 @@ Before starting, make sure you have:
 
 ---
 
-## Step 1: Prepare the Supabase Database
+## Step 1: Prepare the Supabase Database (Connection Pooler for IPv4)
+
+> [!IMPORTANT]
+> Since early 2024, Supabase uses IPv6-only addresses for **Direct Database Connections** (port `5432` on the direct host). Because Render web services do not currently support outgoing IPv6 connections, direct connections will fail during deployment with a `Network unreachable` or `SocketException`.
+> To fix this, **you must use the Supabase Connection Pooler (Supavisor)**, which is IPv4-compatible and resolves correctly on Render.
 
 1. Log in to your [Supabase Dashboard](https://supabase.com/).
 2. Select your project and navigate to **Project Settings** -> **Database**.
-3. Under the **Connection string** section, locate the host and connection details.
-   - **Host**: `db.sleoburmlfbxrjndejxk.supabase.co`
-   - **Database**: `postgres`
-   - **User**: `postgres`
-   - **Port**: `5432`
+3. Scroll down to the **Connection Pooler** section.
+4. Set the pooler mode to **Session** (highly recommended for Spring Boot applications using connection pools like HikariCP).
+5. Locate the connection details:
+   - **Host**: `aws-0-[your-region].pooler.supabase.com` (e.g., `aws-0-ap-southeast-1.pooler.supabase.com`)
+   - **Port**: `6543`
+   - **User**: `postgres.[your-project-ref]` (e.g., `postgres.sleoburmlfbxrjndejxk`)
+     *(Notice that the username has your project reference appended. This is critical for the pooler to route connections correctly).*
    - **Password**: The password you set when creating the database.
-4. Prepare your JDBC connection URL. Spring Boot requires a connection URL prefixed with `jdbc:postgresql://`.
-   - **Standard Connection String**: `postgresql://postgres:[YOUR-PASSWORD]@db.sleoburmlfbxrjndejxk.supabase.co:5432/postgres`
-   - **Spring Boot JDBC URL**: `jdbc:postgresql://db.sleoburmlfbxrjndejxk.supabase.co:5432/postgres`
+6. Prepare your JDBC connection URL:
+   - **Spring Boot JDBC URL**: `jdbc:postgresql://aws-0-[your-region].pooler.supabase.com:6543/postgres?sslmode=require`
 
 ---
 
@@ -49,8 +54,8 @@ The backend is built from the `backend` folder in your repository using a multi-
 
 | Key | Value | Description |
 |---|---|---|
-| `SPRING_DATASOURCE_URL` | `jdbc:postgresql://db.sleoburmlfbxrjndejxk.supabase.co:5432/postgres` | Supabase JDBC URL |
-| `SPRING_DATASOURCE_USERNAME` | `postgres` | Supabase DB User |
+| `SPRING_DATASOURCE_URL` | `jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres?sslmode=require` | Supabase Pooler JDBC URL (replace with your pooler host/port) |
+| `SPRING_DATASOURCE_USERNAME` | `postgres.sleoburmlfbxrjndejxk` | Supabase Pooler DB User (replace with your project ref) |
 | `SPRING_DATASOURCE_PASSWORD` | `[YOUR-SUPABASE-PASSWORD]` | Supabase DB Password |
 | `JWT_SECRET` | `5567729F2B4D6251655468576D5A7134743777217A25432A462D4A614E645267` | A secure 64-hex-character signing key |
 
