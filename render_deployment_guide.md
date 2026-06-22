@@ -27,7 +27,7 @@ Before starting, make sure you have:
 3. Scroll down to the **Connection Pooler** section.
 4. Set the pooler mode to **Session** (highly recommended for Spring Boot applications using connection pools like HikariCP).
 5. Locate the connection details:
-   - **Host**: `aws-0-[your-region].pooler.supabase.com` (e.g., `aws-0-ap-southeast-1.pooler.supabase.com`)
+   - **Host**: `aws-0-[your-region].pooler.supabase.com` (e.g., `aws-0-ap-southeast-2.pooler.supabase.com`)
    - **Port**: `6543`
    - **User**: `postgres.[your-project-ref]` (e.g., `postgres.sleoburmlfbxrjndejxk`)
      *(Notice that the username has your project reference appended. This is critical for the pooler to route connections correctly).*
@@ -54,7 +54,7 @@ The backend is built from the `backend` folder in your repository using a multi-
 
 | Key | Value | Description |
 |---|---|---|
-| `SPRING_DATASOURCE_URL` | `jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres?sslmode=require` | Supabase Pooler JDBC URL (replace with your pooler host/port) |
+| `SPRING_DATASOURCE_URL` | `jdbc:postgresql://aws-0-ap-southeast-2.pooler.supabase.com:6543/postgres?sslmode=require` | Supabase Pooler JDBC URL (replace with your pooler host/port) |
 | `SPRING_DATASOURCE_USERNAME` | `postgres.sleoburmlfbxrjndejxk` | Supabase Pooler DB User (replace with your project ref) |
 | `SPRING_DATASOURCE_PASSWORD` | `[YOUR-SUPABASE-PASSWORD]` | Supabase DB Password |
 | `JWT_SECRET` | `5567729F2B4D6251655468576D5A7134743777217A25432A462D4A614E645267` | A secure 64-hex-character signing key |
