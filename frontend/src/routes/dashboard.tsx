@@ -6,11 +6,13 @@ import { ClinicProvider } from "@/lib/api/clinic-state";
 
 export const Route = createFileRoute("/dashboard")({
   beforeLoad: () => {
-    const token = typeof window !== "undefined" ? localStorage.getItem("tymely_auth_token") : null;
-    if (!token) {
-      throw redirect({
-        to: "/login",
-      });
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("tymely_auth_token");
+      if (!token) {
+        throw redirect({
+          to: "/login",
+        });
+      }
     }
   },
   head: () => ({
